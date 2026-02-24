@@ -18,7 +18,8 @@ pacman -S --noconfirm \
     gnome-remote-desktop \
     rygel \
     tecla \
-    grilo-plugins
+    grilo-plugins \
+    evolution-data-server
 
 # Install GNOME applications
 pacman -S --noconfirm \
