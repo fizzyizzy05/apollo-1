@@ -4,6 +4,7 @@
 FROM scratch AS ctx
 COPY build_files /build_files
 COPY system_files /system_files
+COPY assets /assets
 
 # Original build scripts from bootcrew. For now, let's leave this part in tact to make syncing this with the upstream repo eaiser.
 
