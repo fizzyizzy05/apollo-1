@@ -20,6 +20,7 @@ echo "=== Base Apollo Buildscripts Complete! ==="
 
 echo "=== Starting GNOME Buildscripts... ==="
 
+echo "test"
 # Install GNOME
 /ctx/build_files/gnome/01-gnome.sh
 

@@ -2,3 +2,6 @@
 
 [org.gnome.desktop.interface]
 accent-color='purple'
+
+[org.gnome.login-screen]
+logo='/usr/share/apollo/assets/watermark.svg'
