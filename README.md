@@ -1,6 +1,8 @@
 # Apollo
 Apollo is a bootc image built on top of Arch Linux and GNOME. It is designed for gaming, software development and general day to day use for people who want a reliable, up to date and easy to use desktop operating system. 
 
+<img width="1920" height="1200" alt="A screenshot of a booted Apollo system running hyfetch and bootc status" src="https://github.com/user-attachments/assets/791db1cc-a5c8-4a68-9b43-2266acd92167" />
+
 ## Current status
 Apollo is in an experimental pre-alpha state. Use with caution; stability is not guaranteed at this time and basic things *will* be missing. You should be fully prepared to report bugs and in general, help is appreciated.
 
