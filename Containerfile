@@ -10,6 +10,9 @@ FROM ghcr.io/bootcrew/arch-bootc:latest
 
 ARG IMAGE_NAME="${IMAGE_NAME:-apollo}"
 
+# Update the image
+RUN pacman -Syu --noconfirm
+
 # Call in Apollo's build scripts.
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
