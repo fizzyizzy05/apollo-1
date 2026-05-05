@@ -103,7 +103,7 @@ jobs:
       - name: Build image with mkosi
         id: build 
         run: 
-          sudo mkosi -B -ff --debug --profile=bootc
+          sudo mkosi -B -ff --debug --profile=bootc --cache-only=never
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3
