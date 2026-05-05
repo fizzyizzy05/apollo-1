@@ -4,3 +4,6 @@
 [submodule "subprojects/arch-bootc-pkgs"]
 	path = subprojects/arch-bootc-pkgs
 	url = https://github.com/hecknt/arch-bootc-pkgs
+[submodule "subprojects/ublue-brew"]
+	path = subprojects/ublue-brew
+	url = https://github.com/ublue-os/brew
