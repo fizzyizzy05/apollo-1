@@ -103,7 +103,7 @@ jobs:
       - name: Build image with mkosi
         id: build 
         run: 
-          sudo just build-bootc
+          just build-bootc
 
       - name: Load the image into the local storage
         run:
