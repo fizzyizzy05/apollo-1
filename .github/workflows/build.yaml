@@ -107,7 +107,9 @@ jobs:
 
       - name: Load the image into the local storage
         run:
-          just load
+          for tag in DOCKER_METADATA_OUTPUT_TAGS;
+            BUILD_OUTPUT_TAG=$tag just load
+          done
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3
