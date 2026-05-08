@@ -46,7 +46,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
         with:
-          submodules: 'true'
+          submodules: 'recursive'
 
       - name: Get current date
         id: date
@@ -94,18 +94,20 @@ jobs:
           target-dir: /var/lib/containers
           mount-opts: compress-force=zstd:2
 
-      - name: Build Image
-        id: build_image
-        uses: redhat-actions/buildah-build@7a95fa7ee0f02d552a32753e7414641a04307056 # v2
-        with:
-          containerfiles: |
-            ./Containerfile
-          build-args:
-            IMAGE_NAME=${{ env.IMAGE_NAME }}
-          image: ${{ env.IMAGE_NAME }}
-          tags: ${{ steps.metadata.outputs.tags }}
-          labels: ${{ steps.metadata.outputs.labels }}
-          oci: true
+      - name: Install just
+        uses: extractions/setup-just@v4
+
+      - name: Install mkosi
+        uses: systemd/mkosi@c4c3d793d0f6f0a2f26895de5ed9382396f36bb5
+
+      - name: Build image with mkosi
+        id: build 
+        run: 
+          sudo mkosi -B --profile bootc --debug -ff --tools-tree-distribution=arch
+
+      - name: Load the image into the local storage
+        run:
+          just load
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3

@@ -1,0 +1,9 @@
+disable systemd-firstboot.service
+
+enable gdm.service
+enable gnome-initial-setup.service
+enable NetworkManager.service
+enable systemd-resolved.service
+enable bluetooth.service
+enable cups.service
+enable ufw.service
