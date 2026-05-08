@@ -107,8 +107,13 @@ jobs:
 
       - name: Load the image into the local storage
         run:
-          for TAG in $DOCKER_METADATA_OUTPUT_TAGS; do
-              export BUILD_IMAGE_TAG=$TAG && just load
+          just load
+
+      - name: Tag images
+        run: |
+          just load
+          for tag in $DOCKER_METADATA_OUTPUT_TAGS; do
+              podman tag apollo:latest apollo:$tag;
           done
 
       - name: Login to GitHub Container Registry
