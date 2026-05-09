@@ -2,6 +2,12 @@
 
 set -ouex pipefail
 
+# Install xdg-terminal-exec
+cd /tmp
+git clone "https://gitlab.freedesktop.org/Vladimir-csp/xdg-terminal-exec.git" && cd xdg-terminal-exec
+
+make prefix="/usr" install
+
 # Finish installing brew
 curl --retry 3 -fsSLo "/tmp/brew-install" "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh" && \
 touch /.dockerenv && \
