@@ -24,16 +24,23 @@ load:
     podman load -i "$(find mkosi.output/* -maxdepth 0 -type d -printf "%T@ ,%p\n" -iname "_*" -print0 | sort -n | head -n1 | cut -d, -f2)" -q | cut -d: -f3 | xargs -I{} podman tag {} {{image_name}}:{{image_tag}}
 
 bootc *ARGS:
-    sudo {{container_runtime}} run \
+    #!/usr/bin/env bash
+    set -eoux pipefail
+
+    BOOTC_INSTALL_OPTIONS=()
+    BOOTC_INSTALL_OPTIONS+=("-v" "/var/lib/containers:/var/lib/containers" "-v" "/etc/containers:/etc/containers")
+
+    if [[ -d /sys/fs/selinux ]]; then
+      BOOTC_INSTALL_OPTIONS+=("-v" "/sys/fs/selinux:/sys/fs/selinux" "--security-opt" "label=type:unconfined_t")
+    fi
+
+    podman run \
         --rm --privileged --pid=host \
         -it \
-        -v /etc/containers:/etc/containers:Z \
-        -v /var/lib/containers:/var/lib/containers:Z \
+        "${BOOTC_INSTALL_OPTIONS[@]}" \
         -v /dev:/dev \
-        -e RUST_LOG=debug \
-        -v "{{base_dir}}:/data" \
-        --security-opt label=type:unconfined_t \
-        "{{image_name}}:{{image_tag}}" bootc {{ARGS}}
+        -v "${BUILD_BASE_DIR:-.}:/data" \
+        {{image_name}}:{{image_tag}} bootc {{ ARGS }}
 
 # Generate a bootable .img file with Apollo installed
 generate-bootable-image $base_dir=base_dir $filesystem=filesystem:

@@ -35,4 +35,14 @@ sed -i -e '/^d- \/var\/roothome /d' /usr/lib/tmpfiles.d/provision.conf > /dev/nu
 
 # This goes along with the DBPath modification in pacman.conf to make `bootc usroverlay` work properly
 mkdir -p "$BUILDROOT/usr/lib/sysimage/lib"
-mv "$BUILDROOT/var/lib/pacman/local" "$BUILDROOT/usr/lib/sysimage/lib/pacman"
+mv "$BUILDROOT/var/lib/pacman" "$BUILDROOT/usr/lib/sysimage/lib/pacman"
+
+# Make sure that pacman is using the DB from /usr/lib/sysimage rather than the one in /var 
+tee -a /etc/pacman.conf <<EOL
+[options]
+DBPath = /usr/lib/sysimage/lib/pacman/
+EOL
+
+# Reinitalise the pacman keyring for future pacman use
+pacman-key --init
+pacman-key --populate
