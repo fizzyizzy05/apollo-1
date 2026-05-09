@@ -1,5 +1,5 @@
 # Contributing
-These are some rules and guidelines when contributing to Apollo, please follow them. 
+Thank you for your interest in contributing to Apollo. To help your contribution be accepted more easily, please read through the following first. 
 
 ## Building
 Apollo is made with mkosi and bootc. You'll need mkosi, just, and preferably podman (docker should work too). A hypervisor is also recommended for testing images. 
