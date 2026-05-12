@@ -5,6 +5,7 @@ filesystem := env("BUILD_FILESYSTEM", "ext4")
 build_args := env("BUILD_ARGUMENTS", "")
 just := just_executable()
 container_runtime := env("CONTAINER_RUNTIME", `command -v podman >/dev/null 2>&1 && echo podman || echo docker`)
+profiles := env("BUILD_PROFILES", "")
 
 [private]
 default:
@@ -12,8 +13,14 @@ default:
 
 build: build-bootc
 
-build-bootc:
-    mkosi -B --debug --profile=bootc
+build-bootc $profiles=profiles:
+    #!/bin/bash
+
+    for profile in {{profiles}}; do
+        args="$args --profile $profile"
+    done
+
+    mkosi -B --debug --profile=bootc ${args}
 
 lint:
     podman run --rm -it --entrypoint=bootc {{image_name}}:{{image_tag}} container lint
