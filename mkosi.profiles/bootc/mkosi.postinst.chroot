@@ -40,8 +40,16 @@ mv "$BUILDROOT/var/lib/pacman" "$BUILDROOT/usr/lib/sysimage/lib/pacman"
 
 # Make sure that pacman is using the DB from /usr/lib/sysimage rather than the one in /var 
 tee -a /etc/pacman.conf <<EOL
+
 [options]
 DBPath = /usr/lib/sysimage/lib/pacman/
+EOL
+
+# Add the multilib repo to the final image
+tee -a /etc/pacman.conf <<EOL
+
+[multilib]
+Include = /etc/pacman.d/mirrorlist
 EOL
 
 # Disable the pacman sandbox
