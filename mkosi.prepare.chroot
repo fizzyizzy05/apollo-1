@@ -8,6 +8,7 @@ git clone "https://gitlab.freedesktop.org/Vladimir-csp/xdg-terminal-exec.git" &&
 
 make prefix="/usr" install
 
+# Install the homebrew.tar.zst
 mkdir /tmp/brew
 crane export ghcr.io/ublue-os/brew:latest | tar --strip-components=2 -xvf - -C /tmp/brew system_files/usr/share/homebrew.tar.zst
 mv /tmp/brew/share/homebrew.tar.zst /usr/share/homebrew.tar.zst
