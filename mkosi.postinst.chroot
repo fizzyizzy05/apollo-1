@@ -49,3 +49,7 @@ SUPPORT_URL="${SUPPORT_URL}"
 LOGO="${LOGO}"
 DEFAULT_HOSTNAME="${HOSTNAME}"
 EOF
+
+# Remove packages that are only used for building
+pacman -Rs --noconfirm \
+    crane
