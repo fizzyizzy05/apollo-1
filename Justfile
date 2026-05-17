@@ -76,6 +76,17 @@ run-shell *ARGS:
         --security-opt label=type:unconfined_t \
         "{{image_name}}:{{image_tag}}" bash
 
+# Rechunk the final Apollo image with Chunkah
+rechunk: 
+    #!/bin/bash
+    IMG="{{image_name}}:{{image_tag}}"
+    export CHUNKAH_CONFIG_STR="$(podman inspect $IMG)"
+    podman run --rm --mount=type=image,src=$IMG,dest=/chunkah \
+        -e CHUNKAH_CONFIG_STR quay.io/coreos/chunkah build \
+        --label containers.bootc=1 \
+        --compressed --max-layers 128 \
+        -t $IMG | podman load
+
 clean:
     mkosi clean
     sudo rm -r mkosi.tools/ mkosi.cache/
